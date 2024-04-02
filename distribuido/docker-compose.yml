@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+
+  users_api:
+    container_name: users_api
+    build:
+      context: ./APIS
+    ports:
+      - "3000:3000"
+    networks:
+      - dev_env_network
+
+networks:
+  dev_env_network:
+    driver: bridge
