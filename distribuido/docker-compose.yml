@@ -8,9 +8,23 @@ services:
       context: ./APIS
     ports:
       - "3000:3000"
+    volumes:
+      - ./APIS/users:/usr/usersAPI/
     networks:
       - dev_env_network
-
+  
+  db:
+    image: postgres
+    container_name: users_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - ./users_pgdata:/var/lib/postgresql/data
+    networks:
+      - dev_env_network
+      
 networks:
   dev_env_network:
     driver: bridge

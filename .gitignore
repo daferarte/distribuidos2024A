@@ -1,3 +1,5 @@
-/local_pgdata
-/local_pgdata_p
-/pgadmin-data
+local_pgdata
+local_pgdata_p
+pgadmin-data
+users_pgdata
+node_modules
