@@ -24,7 +24,20 @@ services:
       - ./users_pgdata:/var/lib/postgresql/data
     networks:
       - dev_env_network
-      
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: distri_pgadmin
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dani@dani.com
+      PGADMIN_DEFAULT_PASSWORD: 12345
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    networks:
+      - dev_env_network
+
 networks:
   dev_env_network:
     driver: bridge
