@@ -1,6 +1,6 @@
 const {response, request}= require('express');
 const { PrismaClient } = require('@prisma/client');
-const { createJWT } = require('../middlewares/jwt');
+const { createJWT, encrypt, decrypt } = require('../middlewares/jwt');
 
 const prisma = new PrismaClient();
 
@@ -35,8 +35,9 @@ const usersGet = (req = request, res = response)=>{
 }
 
 const login = async(req = request, res = response)=>{
-    const {username, password} = req.body;
+    const {username, password, encryptpss} = req.body;
     
+
     const user = await prisma.Users.findMany({
         where: {           
                     username: username
@@ -49,10 +50,13 @@ const login = async(req = request, res = response)=>{
 
     if(user[0]){
         const userJWT = await createJWT(user);
-
+        const pass = await encrypt(password);
+        const dpss = await decrypt(encryptpss);
         res.json({
             user,
-            userJWT
+            userJWT,
+            pass,
+            dpss
         });
     }
 
