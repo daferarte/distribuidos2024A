@@ -40,7 +40,8 @@ const login = async(req = request, res = response)=>{
 
     const user = await prisma.Users.findMany({
         where: {           
-                    username: username
+                    username: username, 
+                    password: password
         },
     }).catch((e)=>{
         return e.message;
