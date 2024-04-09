@@ -1,7 +1,16 @@
 const { response } = require('express');
 const jwt = require('jsonwebtoken');
 
+const createJWT = (data) => {
+    const {id, email, password} = data;
 
+    const token = jwt.sign({
+        email,
+        id
+    }, process.env.AUTH_JWT_SECRET)
+
+    return token;
+}
 
 const validateJWT = (req, res=response, next) => {
     let token = req.header('authorization');
@@ -30,5 +39,6 @@ const validateJWT = (req, res=response, next) => {
 };
 
 module.exports = {
-    validateJWT
+    validateJWT,
+    createJWT
 }
