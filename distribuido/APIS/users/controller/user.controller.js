@@ -26,11 +26,13 @@ const addUser = async (req = request, res = response) => {
 const usersGet = (req = request, res = response)=>{
     const { name, email, password }=req.query;
 
+    let a = 7/0
     res.json({
         name,
         email,
         password,
-        msg: 'exito'
+        msg: 'exito',
+        a
     })
 }
 
