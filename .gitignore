@@ -3,3 +3,4 @@ local_pgdata_p
 pgadmin-data
 users_pgdata
 node_modules
+users_prod_pgdata

@@ -9,12 +9,13 @@ services:
     depends_on:
       - users_api
     networks:
-      - dev_env_network
+      - prod_env_network
 
   users_api:
     # container_name: users_api
     build:
       context: ./APIS
+      dockerfile: Dockerfile.prod
     deploy:
       replicas: 10
       resources:
@@ -26,12 +27,10 @@ services:
           memory: 256M
     expose:
       - "3000-3010:3000"
-    volumes:
-      - ./APIS/users:/usr/usersAPI/
     depends_on:
       - db
     networks:
-      - dev_env_network
+      - prod_env_network
   
   db:
     image: postgres
@@ -44,28 +43,15 @@ services:
         reservations:
           cpus: "0.1"
           memory: 256M
-    ports:
-      - "5434:5432"
+    # ports:
+    #   - "5434:5432"
     environment:
       POSTGRES_PASSWORD: 12345
     volumes:
-      - ./users_pgdata:/var/lib/postgresql/data
+      - ./users_prod_pgdata:/var/lib/postgresql/data
     networks:
-      - dev_env_network
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: distri_pgadmin
-    ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: dani@dani.com
-      PGADMIN_DEFAULT_PASSWORD: 12345
-    volumes:
-      - ./pgadmin-data:/var/lib/pgadmin
-    networks:
-      - dev_env_network
+      - prod_env_network
 
 networks:
-  dev_env_network:
+  prod_env_network:
     driver: bridge

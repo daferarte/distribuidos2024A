@@ -31,6 +31,8 @@ RUN npm install dotenv --save-dev
 
 COPY users/ /usr/usersAPI/
 RUN prisma generate
+# RUN node test
+
 CMD ["nodemon", "app.js"]
 
 
